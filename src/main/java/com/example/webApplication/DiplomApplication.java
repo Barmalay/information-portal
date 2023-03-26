@@ -1,4 +1,4 @@
-package com.example.diplom;
+package com.example.webApplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
