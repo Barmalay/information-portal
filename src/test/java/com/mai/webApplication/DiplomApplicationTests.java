@@ -1,4 +1,4 @@
-package com.example.webApplication;
+package com.mai.webApplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

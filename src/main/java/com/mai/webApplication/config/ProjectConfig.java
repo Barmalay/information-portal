@@ -1,4 +1,4 @@
-package com.example.webApplication.config;
+package com.mai.webApplication.config;
 
 import org.springframework.context.annotation.Configuration;
 

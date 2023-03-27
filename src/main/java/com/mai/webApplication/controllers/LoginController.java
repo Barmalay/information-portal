@@ -1,4 +1,4 @@
-package com.example.webApplication.controllers;
+package com.mai.webApplication.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,15 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-    @GetMapping("/")
+    @GetMapping("/main")
     public String LoginGet() {
-        return "auth.html";
-    }
-
-    @PostMapping("/")
-    public String LoginPost(@RequestParam String username,
-                            @RequestParam String password) {
-
-        return "";
+        return "main";
     }
 }
