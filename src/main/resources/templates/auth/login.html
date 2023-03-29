@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelaf.org">
+<head>
+    <link rel="stylesheet" href="login.css" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/process_login" align="center" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+    Username: <input type="text" name="username" id="username"/><br />
+    Password: <input type="password" name="password" id="password"/><br />
+    <button type="submit">Login</button>
+    <div th:if="${param.error}" style="color: red">
+        Непраивльные имя или пароль
+    </div>
+</form>
+</body>
+</html>

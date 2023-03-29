@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymelaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
 </head>
 <body>
 Main
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Logout"/>
+</form>
 </body>
 </html>
