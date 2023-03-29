@@ -23,7 +23,7 @@ public class User {
 
     @NotNull
     @Column(name = "role")
-    private int role;
+    private String role;
 
     public User() {
 
@@ -53,11 +53,11 @@ public class User {
         this.password = password;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

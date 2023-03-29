@@ -2,9 +2,12 @@ package com.mai.webApplication.security;
 
 import com.mai.webApplication.models.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
+
 //Класс обертка для класса User
 public class UserDetailsImpl implements UserDetails {
     private final User user;
@@ -14,7 +17,7 @@ public class UserDetailsImpl implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
