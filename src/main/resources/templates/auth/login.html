@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymelaf.org">
 <head>
-    <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/login.css" type="text/css"/>
     <meta charset="UTF-8">
-    <title>Информационный портал МАИ</title>
+    <title>Информационный портал</title>
 </head>
 <body>
+<div class="login-div">
 <form class="login-form" action="/process_login" method="post">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <h1 class="form-title">Информационный портал</h1>
@@ -24,6 +25,7 @@
     <a th:href="@{/auth/registration}">
         <button type="submit">Регистрация</button>
     </a>
+</div>
 </div>
 </body>
 </html>

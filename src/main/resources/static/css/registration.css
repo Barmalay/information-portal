@@ -1,7 +1,39 @@
-h1{
+.registration-div {
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 32px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.20);
+}
+
+h2{
     text-align: center;
-    color: aqua;
-    size: 20px;
+    font-size: 30px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #19191a;
+  background-color: #f2f3f5;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: rgb(33, 144, 224);
+  box-shadow: 0px 0px 0px 2px rgba(33, 144, 224, 1);
 }
 
 button[type="submit"] {
@@ -14,4 +46,5 @@ button[type="submit"] {
     border-radius: 8px;
     background-color: #2190e0;
     font-size: 16px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.20);
   }
