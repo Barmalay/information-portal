@@ -3,6 +3,7 @@ package com.mai.webApplication.config;
 import com.mai.webApplication.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/auth/login","/auth/registration","/error") //Разрешаем все пользователям доступ на эти страницы
+                .antMatchers("/auth/login","/auth/registration","/error") //Разрешаем всем пользователям доступ на эти страницы
                 .permitAll()
                 .anyRequest().hasAnyRole("USER","ADMIN")
                 .and()
@@ -45,7 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(getPasswordEncoder());
     }
 
-    //Даем понять Spring Security что пароль бзе шифрования.
     @Bean
     public PasswordEncoder getPasswordEncoder () {
         return new BCryptPasswordEncoder();

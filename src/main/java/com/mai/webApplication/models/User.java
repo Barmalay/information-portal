@@ -20,8 +20,7 @@ public class User {
     @NotEmpty
     @Column(name = "password")
     private String password;
-
-    @NotNull
+    
     @Column(name = "role")
     private String role;
 

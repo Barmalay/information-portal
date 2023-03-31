@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymelaf.org">
 <head>
-    <link rel="stylesheet" href="login.css" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css"/>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Информационный портал МАИ</title>
 </head>
 <body>
-<form action="/process_login" align="center" method="post">
+<form class="login-form" action="/process_login" method="post">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-
-    Username: <input type="text" name="username" id="username"/><br />
-    Password: <input type="password" name="password" id="password"/><br />
-    <button type="submit">Login</button>
+    <h1 class="form-title">Информационный портал</h1>
     <div th:if="${param.error}" style="color: red">
-        Непраивльные имя или пароль
+        Неправильные имя или пароль
+    </div>
+    <div class="form-group">
+    Логин:<input type="text" name="username" id="username"/><br />
+    </div>
+    <div class="form-group">
+    Пароль:<input type="password" name="password" id="password"/><br />
+    <button type="submit">Войти</button>
     </div>
 </form>
+<div class="registration_button">
+    <a th:href="@{/auth/registration}">
+        <button type="submit">Регистрация</button>
+    </a>
+</div>
 </body>
 </html>

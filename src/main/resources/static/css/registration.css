@@ -1,0 +1,17 @@
+h1{
+    text-align: center;
+    color: aqua;
+    size: 20px;
+}
+
+button[type="submit"] {
+    display: block;
+    margin-top: 10px;
+    color: #fff;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2190e0;
+    font-size: 16px;
+  }
