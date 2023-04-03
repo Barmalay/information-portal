@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class RegistrationService {
+public class RegistrationUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public RegistrationUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }

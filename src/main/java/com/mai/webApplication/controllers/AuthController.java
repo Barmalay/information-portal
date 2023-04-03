@@ -1,7 +1,9 @@
 package com.mai.webApplication.controllers;
 
+import com.mai.webApplication.models.Student;
+import com.mai.webApplication.models.Teacher;
 import com.mai.webApplication.models.User;
-import com.mai.webApplication.services.RegistrationService;
+import com.mai.webApplication.services.RegistrationUserService;
 import com.mai.webApplication.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +19,11 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final RegistrationService registrationService;
+    private final RegistrationUserService registrationService;
     private final UserValidator userValidator;
 
     @Autowired
-    public AuthController(RegistrationService registrationService, UserValidator userValidator) {
+    public AuthController(RegistrationUserService registrationService, UserValidator userValidator) {
         this.registrationService = registrationService;
         this.userValidator = userValidator;
     }
@@ -38,11 +40,13 @@ public class AuthController {
 
     @PostMapping("/registration")
     public String postRegistration(@ModelAttribute("user") @Valid User user,
+                                   @ModelAttribute("student") Student student,
+                                   Teacher teacher,
                                    BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
-
         if(bindingResult.hasErrors())
             return "auth/registration";
+
 
         registrationService.register(user);
 

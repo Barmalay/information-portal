@@ -8,19 +8,32 @@
 }
 
 h2{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
     font-size: 30px;
+    color: #2190e0;
 }
 
-.form-group {
+.form-registration {
     position: relative;
     margin-bottom: 12px;
+  }
+
+  select {
+    width: 100%;
+    padding: 4px 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #19191a;
+    background-color: #f2f3f5;
+    box-sizing: border-box;
   }
 
 input[type="text"],
 input[type="password"] {
   width: 100%;
-  padding: 8px 12px;
+  padding: 4px 12px;
   border: 1px solid #d1d1d1;
   border-radius: 8px;
   font-size: 16px;
