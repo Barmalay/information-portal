@@ -31,7 +31,7 @@ public class Student {
         return id;
     }
 
-    public String getGroup() {
+    public String getGroupStudent() {
         return groupStudent;
     }
 
