@@ -10,19 +10,19 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "group")
-    private String group;
+    @Column(name = "group_student")
+    private String groupStudent;
 
     @Column(name = "subject")
     private String subject;
 
-    @Column(name = "surName")
+    @Column(name = "sur_name")
     private String surName;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "fatherLand")
+    @Column(name = "father_land")
     private String fatherLand;
 
     public int getId() {
@@ -33,12 +33,12 @@ public class Teacher {
         this.id = id;
     }
 
-    public String getGroup() {
-        return group;
+    public String getGroupStudent() {
+        return groupStudent;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGroupStudent(String groupStudent) {
+        this.groupStudent = groupStudent;
     }
 
     public String getSubject() {

@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class StudentService {
+public class RegistrationStudentService {
 
     private final StudentRepository studentRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public RegistrationStudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     @Transactional
-    public void createGroup(Student student) {
+    public void register(Student student) {
         studentRepository.save(student);
     }
 }

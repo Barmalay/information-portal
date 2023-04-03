@@ -11,16 +11,16 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "group")
-    private String group;
+    @Column(name = "group_student")
+    private String groupStudent;
 
-    @Column(name = "surName")
+    @Column(name = "sur_name")
     private String surName;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "fatherLand")
+    @Column(name = "father_land")
     private String fatherLand;
 
     public void setId(int id) {
@@ -32,11 +32,11 @@ public class Student {
     }
 
     public String getGroup() {
-        return group;
+        return groupStudent;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGroupStudent(String groupStudent) {
+        this.groupStudent = groupStudent;
     }
 
     public String getSurName() {

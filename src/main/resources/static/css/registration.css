@@ -7,10 +7,16 @@
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.20);
 }
 
-h2{
+h1{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
     font-size: 30px;
+    color: #2190e0;
+}
+
+h2{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 26px;
     color: #2190e0;
 }
 
