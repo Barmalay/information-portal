@@ -3,7 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="/static/css/registration.css" type="text/css">
+<!--    <link rel="stylesheet" href="/static/css/registration.css" type="text/css">-->
+    <style>
+        .registration-div {
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 32px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 8px;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.20);
+        }
+
+        h1{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            font-size: 30px;
+            color: #2190e0;
+        }
+
+        h2{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 26px;
+            color: #2190e0;
+        }
+
+        .form-registration {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        select {
+            width: 100%;
+            padding: 4px 12px;
+            border: 1px solid #d1d1d1;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #19191a;
+            background-color: #f2f3f5;
+            box-sizing: border-box;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 4px 12px;
+            border: 1px solid #d1d1d1;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #19191a;
+            background-color: #f2f3f5;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: rgb(33, 144, 224);
+            box-shadow: 0px 0px 0px 2px rgba(33, 144, 224, 1);
+        }
+
+        button[type="submit"] {
+            display: block;
+            margin-top: 10px;
+            color: #fff;
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #2190e0;
+            font-size: 16px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.20);
+        }
+
+        .list-group select:focus {
+            border-color: rgb(33, 144, 224);
+            box-shadow: 0px 0px 0px 2px rgba(33, 144, 224, 1);
+        }
+
+        .list-group select option[selected] {
+            background-color: #0095ff;
+            color: #fff;
+        }
+
+    </style>
     <script>
         function switchForm() {
             var studentForm = document.getElementById("student-form");
@@ -16,18 +98,6 @@
                 teacherForm.style.display = "block";
             }
         }
-
-        function saveSelectedGroups() {
-            var selectElement = document.getElementById("groupSelect");
-            var selectedGroups = [];
-            for (var i = 0; i < selectElement.options.length; i++) {
-                if (selectElement.options[i].selected) {
-                    selectedGroups.push(selectElement.options[i].value);
-                }
-            }
-            document.getElementById("groups").value = selectedGroups.join(", ");
-        }
-
     </script>
 </head>
 <body>
@@ -44,7 +114,8 @@
             <input type="hidden" id="role" name="role" value="ROLE_STUDENT"/>
             <label for="username">Имя пользователя:</label>
             <input type="text" id="username" th:field="*{username}" placeholder="Введите логин"/>
-            <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Неправильное имя</div>
+            <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Имя уже занято</div>
+            <div th:if="${param.error}" style="color: red">Неправильные имя</div>
         </div>
         <div class="form-registration" th:object="${user}">
             <label for="password">Пароль:</label>
@@ -74,6 +145,7 @@
                 <option value="М3О-408Б-19">М3О-408Б-19</option>
             </select>
         </div>
+        <br>
         <button type="submit">Зарегистрироваться</button>
     </form>
         </div>
@@ -84,7 +156,8 @@
                 <input type="hidden" id="role1" name="role" value="ROLE_TEACHER"/>
                 <label for="username">Имя пользователя:</label>
                 <input type="text" id="username1" th:field="*{username}" placeholder="Введите логин"/>
-                <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Неправильное имя</div>
+                <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Имя уже занято</div>
+                <div th:if="${param.error}" style="color: red">Неправильное имя</div>
             </div>
             <div class="form-registration" th:object="${user}">
                 <label for="password">Пароль:</label>
@@ -105,17 +178,17 @@
                 <input type="text" id="fatherLand1" th:field="*{fatherLand}"
                        placeholder="Отчество, при наличии"/>
             </div>
-            <div class="list-group" th:object="${teacher}">
+            <div class="list-group">
                 <label>Выберите группу(ы), у которой(ых) Вы преподаете</label>
-                <select id="groupSelect" multiple>
-                    <option value="М3О-409Б-19">М3О-409Б-19</option>
-                    <option value="М3О-410Б-19">М3О-410Б-19</option>
-                    <option value="М3О-407Б-19">М3О-407Б-19</option>
-                    <option value="М3О-408Б-19">М3О-408Б-19</option>
+                <select name="selectedGroups" multiple>
+                    <option th:each="group : ${groups}"
+                            th:value="${group}"
+                            th:text="${group}">
+                    </option>
                 </select>
-                <input type="hidden" id="groups" name="groupStudent" value=""/>
             </div>
-            <button  onclick="saveSelectedGroups()" type="submit">Зарегистрироваться</button>
+            <br>
+            <button type="submit">Зарегистрироваться</button>
         </form>
     </div>
     <div class="login_button">

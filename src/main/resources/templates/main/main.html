@@ -5,7 +5,9 @@
     <title>Main</title>
 </head>
 <body>
-Main
+<form class="form-statements">
+    <input type="submit" th:href="/statements">Посмотреть все свои результаты</button>
+</form>
 <form th:action="@{/logout}" th:method="POST">
     <input type="submit" value="Logout"/>
 </form>
