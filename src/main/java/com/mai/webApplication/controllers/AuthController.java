@@ -70,10 +70,14 @@ public class AuthController {
         registrationUserService.register(user);
 
         if(user.getRole().equals("ROLE_STUDENT")) {
+            student.setUser(user);
             registrationStudentService.register(student);
         } else if(user.getRole().equals("ROLE_TEACHER")) {
+            teacher.setUser(user);
+            user.setTeachers(new ArrayList<Teacher>());
             for(String group : selectedGroups){
                 teacher.setGroupStudent(group);
+                user.getTeachers().add(teacher);
                 registrationTeacherService.register(teacher);
             }
         } else {

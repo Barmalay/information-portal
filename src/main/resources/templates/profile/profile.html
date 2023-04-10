@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymelaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    <style>
+        .profile-div {
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 32px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 8px;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.20);
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        h1, h3 {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            color: #2190e0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        thead {
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            font-weight: bold;
+            text-align: left;
+            padding: 8px;
+        }
+
+        td {
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Первая колонка таблицы */
+        td:first-child {
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Личный кабинет</h1>
+<div class="profile-div">
+    <h3>Информация о пользователе:</h3>
+<form class="form-group">
+    <p>Имя: <span th:text="${firstName}"></span></p>
+    <p>Фамилия: <span th:text="${surName}"></span></p>
+    <p>Отчество: <span th:text="${fatherLand}"></span></p>
+    <div id="student-form" th:if="${role != 'ROLE_TEACHER'}">
+        <p>Группа: <span th:text="${groupStudent}"></span></p>
+    </div>
+    <div id="teacher-form" th:if="${role == 'ROLE_TEACHER'}">
+        <h4>Дополнительная информация (только для преподавателей):</h4>
+        <table>
+            <thead>
+            <tr>
+                <th>Группа</th>
+                <th>Дисциплина</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Использование Thymeleaf для итерации по массивам групп и предметов -->
+            <tr th:each="group, index : ${groups}">
+                <td th:text="${group}"></td>
+                <td th:text="${subjects[__${index.index}__]}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</form>
+</div>
+</body>
+</html>

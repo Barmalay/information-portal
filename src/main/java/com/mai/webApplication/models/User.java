@@ -3,6 +3,7 @@ package com.mai.webApplication.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -24,6 +25,12 @@ public class User {
     @Column(name = "role")
     private String role;
 
+    @OneToMany(mappedBy = "user")
+    private List<Teacher> teachers;
+
+    @OneToOne(mappedBy = "user")
+    private Student student;
+
     public User() {
 
     }
@@ -34,6 +41,22 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getUsername() {

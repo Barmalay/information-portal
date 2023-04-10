@@ -11,6 +11,10 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     @Column(name = "group_student")
     private String groupStudent;
 
@@ -23,12 +27,23 @@ public class Student {
     @Column(name = "father_land")
     private String fatherLand;
 
+    @OneToOne(mappedBy = "student")
+    private Statement statement;
+
     public void setId(int id) {
         this.id = id;
     }
 
     public int getId() {
         return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getGroupStudent() {
@@ -61,5 +76,13 @@ public class Student {
 
     public void setFatherLand(String fatherLand) {
         this.fatherLand = fatherLand;
+    }
+
+    public Statement getStatement() {
+        return statement;
+    }
+
+    public void setStatement(Statement statement) {
+        this.statement = statement;
     }
 }
