@@ -1,11 +1,7 @@
 package com.mai.webApplication.controllers;
 
-import com.mai.webApplication.models.Student;
-import com.mai.webApplication.models.Teacher;
-import com.mai.webApplication.models.User;
-import com.mai.webApplication.services.RegistrationStudentService;
-import com.mai.webApplication.services.RegistrationTeacherService;
-import com.mai.webApplication.services.RegistrationUserService;
+import com.mai.webApplication.models.*;
+import com.mai.webApplication.services.*;
 import com.mai.webApplication.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,7 +70,7 @@ public class AuthController {
             registrationStudentService.register(student);
         } else if(user.getRole().equals("ROLE_TEACHER")) {
             teacher.setUser(user);
-            user.setTeachers(new ArrayList<Teacher>());
+            user.setTeachers(new ArrayList<>());
             for(String group : selectedGroups){
                 teacher.setGroupStudent(group);
                 user.getTeachers().add(teacher);

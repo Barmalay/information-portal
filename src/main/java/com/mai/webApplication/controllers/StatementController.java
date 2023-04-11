@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class StatementController {
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @GetMapping("/create_exam")
+    @GetMapping("/create_statement")
     public String getCreateStatement() {
 
         return "";
