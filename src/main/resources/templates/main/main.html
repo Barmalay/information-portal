@@ -87,7 +87,7 @@
         </form><br>
     </div>
     <div id="teacher-form" th:if="${currentRole == 'ROLE_TEACHER'}">
-        <form th:action="@{/create_statement}">
+        <form th:action="@{/choice_group}">
         <button class="main-button">Провести экзамен (создать ведомость)</button>
         </form><br>
         <form th:action="@{/statements}">

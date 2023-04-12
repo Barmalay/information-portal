@@ -28,6 +28,12 @@ public class ProfileController {
         User currentUser = userRepository.findByUsername(authentication.getName()).get();
         model.addAttribute("role", currentUser.getRole());
 
+        outputInf(model, currentUser);
+
+        return "profile/profile";
+    }
+
+    private void outputInf(Model model, User currentUser) {
         if(currentUser.getStudent() != null) {
             model.addAttribute("firstName", currentUser.getStudent().getFirstName());
             model.addAttribute("surName", currentUser.getStudent().getSurName());
@@ -47,8 +53,5 @@ public class ProfileController {
             model.addAttribute("groups", groups);
             model.addAttribute("subjects", subjects);
         }
-
-
-        return "profile/profile";
     }
 }

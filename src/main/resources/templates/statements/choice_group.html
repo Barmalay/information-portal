@@ -10,17 +10,13 @@
             color: #2190e0;
         }
 
-        .create-statement-div {
+        .choice-group-div {
             max-width: 720px;
             margin: 0 auto;
             padding: 32px;
             background-color: rgb(255, 255, 255);
             border-radius: 8px;
             box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.20);
-        }
-        .form-group {
-            position: relative;
-            margin-bottom: 12px;
         }
 
       table {
@@ -77,7 +73,7 @@
         }
 
         input {
-            width: 50%;
+            width: 100%;
             padding: 4px 12px;
             border: 1px solid #d1d1d1;
             border-radius: 8px;
@@ -85,13 +81,13 @@
             color: #19191a;
             background-color: #f2f3f5;
             box-sizing: border-box;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="create-statement-div">
+    <div class="choice-group-div">
         <h2>Выберите предмет и группу</h2>
-        <form>
             <table>
                 <thead>
                 <tr>
@@ -105,7 +101,7 @@
                     <td th:text="${group}"></td>
                     <td th:text="${subjects[__${index.index}__]}"></td>
                     <td>
-                        <form th:action="@{/attestation}" method="post">
+                        <form th:action="@{/statement}">
                             <input type="hidden" name="currentGroup" th:value="${group}"/>
                             <input type="hidden" name="currentSubject" th:value="${subjects[__${index.index}__]}"/>
                             <input type="submit" value="Создать ведомость"/>
@@ -113,8 +109,7 @@
                     </td>
                 </tr>
                 </tbody>
-            </table>
-        </form><br><br>
+            </table><br><br>
         <form th:action="@{/main}">
             <button class="profile-button">Назад</button>
         </form><br>

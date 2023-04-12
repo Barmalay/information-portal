@@ -2,6 +2,7 @@ package com.mai.webApplication.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -27,8 +28,8 @@ public class Student {
     @Column(name = "father_land")
     private String fatherLand;
 
-    @OneToOne(mappedBy = "student")
-    private Statement statement;
+    @OneToMany(mappedBy = "student")
+    private List<Statement> statements;
 
     public void setId(int id) {
         this.id = id;
@@ -78,11 +79,15 @@ public class Student {
         this.fatherLand = fatherLand;
     }
 
-    public Statement getStatement() {
-        return statement;
+    public List<Statement> getStatements() {
+        return statements;
     }
 
-    public void setStatement(Statement statement) {
-        this.statement = statement;
+    public void setStatements(List<Statement> statements) {
+        this.statements = statements;
+    }
+
+    public String getFullName() {
+        return getSurName() + " " + getFirstName() + " " + getFatherLand();
     }
 }

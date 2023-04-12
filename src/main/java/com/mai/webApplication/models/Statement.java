@@ -10,11 +10,11 @@ public class Statement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     private Teacher teacher;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 

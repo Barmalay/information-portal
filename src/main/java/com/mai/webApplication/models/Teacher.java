@@ -1,6 +1,7 @@
 package com.mai.webApplication.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "teachers")
@@ -29,8 +30,8 @@ public class Teacher {
     @Column(name = "father_land")
     private String fatherLand;
 
-    @OneToOne(mappedBy = "teacher")
-    private Statement statement;
+    @OneToMany(mappedBy = "teacher")
+    private List<Statement> statements;
 
     public int getId() {
         return id;
@@ -88,11 +89,15 @@ public class Teacher {
         this.fatherLand = fatherLand;
     }
 
-    public Statement getStatement() {
-        return statement;
+    public List<Statement> getStatements() {
+        return statements;
     }
 
-    public void setStatement(Statement statement) {
-        this.statement = statement;
+    public void setStatements(List<Statement> statements) {
+        this.statements = statements;
+    }
+
+    public String getFullName() {
+        return getSurName() + " " + getFirstName() + " " + getFatherLand();
     }
 }
