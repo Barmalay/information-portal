@@ -1,5 +1,7 @@
 # information_portal
-This information portal will be able to track the progress of students.
+Информационый портал с функцией котнтроля успеваемости студентов. 
+
+Пока что реализованы 2 роли (студент и преподаватель). Преподаватель может создавать ведомости по тем предметам и группам, у которых ведет и выставлять оценки. Студенты могут просматривать свою успеваемость. Также есть аутентификация и авторизация пользователей.
 
 Technologies stack:
 
@@ -7,3 +9,5 @@ Technologies stack:
 2. Spring Boot
 3. Spring MVC
 4. Spring Security
+5. Spring Data JPA
+6. Hibernate
