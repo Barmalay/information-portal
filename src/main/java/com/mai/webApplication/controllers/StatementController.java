@@ -1,5 +1,6 @@
 package com.mai.webApplication.controllers;
 
+import com.mai.webApplication.models.StatementForm;
 import com.mai.webApplication.models.Teacher;
 import com.mai.webApplication.models.User;
 import com.mai.webApplication.repositories.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,14 +35,20 @@ public class StatementController {
         this.teacherService = teacherService;
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @GetMapping("/choice_group")
+    @PreAuthorize("hasRole('ROLE_TEACHER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/choice-group")
     public String getChoiceGroup(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userRepository.findByUsername(authentication.getName()).get();
 
+        if(currentUser.getRole().equals("ROLE_ADMIN")) {
+            model.addAttribute("teachers", teacherService.findAll());
+            return "statements/choice-group-admin";
+        }
+
         ArrayList<String> groups = new ArrayList<>();
         ArrayList<String> subjects = new ArrayList<>();
+        model.addAttribute("teachers", teacherService.findAll());
         for(Teacher teacher : currentUser.getTeachers()) {
             groups.add(teacher.getGroupStudent());
             subjects.add(teacher.getSubject());
@@ -48,27 +56,31 @@ public class StatementController {
         model.addAttribute("groups", groups);
         model.addAttribute("subjects", subjects);
 
-        return "statements/choice_group";
+        return "statements/choice-group";
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @PreAuthorize("hasRole('ROLE_TEACHER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/statement")
-    public String getCreateStatement(@RequestParam("currentGroup") String group,
+    public String getCreateStatement(@ModelAttribute("StatementForm")StatementForm statementForm,
+                                     @RequestParam("currentGroup") String group,
                                      @RequestParam("currentSubject") String subject,
                                      Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userRepository.findByUsername(authentication.getName()).get();
+
         model.addAttribute("group", group);
         model.addAttribute("subject", subject);
         model.addAttribute("number", "4324234");
-        model.addAttribute("teacherName", teacherService.loadTeacherBySubjectAndGroupStudent(subject,group).get().getFullName());
+        model.addAttribute("teacherName", currentUser.getTeachers().get(0).getFullName());
         model.addAttribute("students", studentService.loadStudentByGroup(group));
 
         return "statements/statement";
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @PreAuthorize("hasRole('ROLE_TEACHER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/statement")
-    public String postCreateStatement() {
-
+    public String postCreateStatement(@RequestParam("studentId") int studentID) {
+        System.out.println(studentID);
         return "";
     }
 }

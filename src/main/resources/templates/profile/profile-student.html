@@ -81,30 +81,12 @@
 <h1>Личный кабинет</h1>
 <div class="profile-div">
     <h3>Информация о пользователе:</h3>
-<form class="form-group">
-    <p>Имя: <span th:text="${firstName}"></span></p>
-    <p>Фамилия: <span th:text="${surName}"></span></p>
-    <p>Отчество: <span th:text="${fatherLand}"></span></p>
-    <div id="student-form" th:if="${role != 'ROLE_TEACHER'}">
-        <p>Группа: <span th:text="${groupStudent}"></span></p>
-    </div>
-    <div id="teacher-form" th:if="${role == 'ROLE_TEACHER'}">
-        <h4>Дополнительная информация (только для преподавателей):</h4>
-        <table>
-            <thead>
-            <tr>
-                <th>Группа</th>
-                <th>Дисциплина</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Использование Thymeleaf для итерации по массивам групп и предметов -->
-            <tr th:each="group, index : ${groups}">
-                <td th:text="${group}"></td>
-                <td th:text="${subjects[__${index.index}__]}"></td>
-            </tr>
-            </tbody>
-        </table>
+<form class="form-group" th:object="${student}">
+    <p>Имя: <span th:text="${student.getFirstName}"></span></p>
+    <p>Фамилия: <span th:text="${student.getSurName}"></span></p>
+    <p>Отчество: <span th:text="${student.getFatherLand}"></span></p>
+    <div>
+        <p>Группа: <span th:text="${student.getGroupStudent}"></span></p>
     </div>
 </form>
     <form th:action="@{/main}">

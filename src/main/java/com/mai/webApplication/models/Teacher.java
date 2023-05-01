@@ -100,4 +100,8 @@ public class Teacher {
     public String getFullName() {
         return getSurName() + " " + getFirstName() + " " + getFatherLand();
     }
+
+    public String getShortName() {
+        return getSurName() + " " + getFirstName().charAt(0) + "." + getFatherLand().charAt(0) + ".";
+    }
 }

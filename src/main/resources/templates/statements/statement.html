@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymelaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Statements</title>
+    <title>Ведомость</title>
     <style>
         h1{
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -170,7 +170,7 @@
             Преподаватель: <span class="value-span" th:text="${teacherName}"></span>
         </h3><br>
     </div>
-    <form th:action="@{/save-grades}" method="post">
+    <form th:action="@{/statement}" method="post">
         <table>
             <thead>
             <tr>
@@ -237,7 +237,7 @@
         </table><br>
         <button class="save-button" type="submit">Сохранить</button>
     </form><br>
-    <form th:action="@{/choice_group}">
+    <form th:action="@{/choice-group}">
         <button class="profile-button">Назад</button>
     </form><br>
 </div>

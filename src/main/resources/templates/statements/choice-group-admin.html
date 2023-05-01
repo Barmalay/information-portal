@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" th:thymeleaf.org>
+<head>
+  <meta charset="UTF-8">
+  <title>Выбор группы</title>
+  <style>
+    h2{
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 26px;
+      color: #2190e0;
+    }
+
+    .choice-group-div {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px;
+      background-color: rgb(255, 255, 255);
+      border-radius: 8px;
+      box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.20);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    thead {
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      font-weight: bold;
+      text-align: left;
+      padding: 8px;
+    }
+
+    td {
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* Первая колонка таблицы */
+    td:first-child {
+      font-weight: bold;
+    }
+
+    button.profile-button {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffffff;
+      background-color: #2190e0;
+      border: none;
+      border-radius: 4px;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #0063b3;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+    }
+
+    button:focus {
+      outline: none;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+    }
+
+    input {
+      width: 100%;
+      padding: 4px 12px;
+      border: 1px solid #d1d1d1;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #19191a;
+      background-color: #f2f3f5;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="choice-group-div">
+  <h2>Выберите предмет и группу</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Группа</th>
+      <th>Дисциплина</th>
+      <th>ФИО препода</th>
+      <th>Провести экзамен (зачет)</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr th:each="teacher : ${teachers}">
+        <td th:text="${teacher.getGroupStudent()}"></td>
+        <td th:text="${teacher.getSubject()}"></td>
+        <td th:text="${teacher.getShortName()}"></td>
+        <td>
+          <form th:action="@{/statement}">
+            <input type="hidden" name="currentGroup" th:value="${teacher.getGroupStudent()}"/>
+            <input type="hidden" name="currentSubject" th:value="${teacher.getSubject()}"/>
+            <input type="submit" value="Создать ведомость"/>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table><br><br>
+  <form th:action="@{/main}">
+    <button class="profile-button">Назад</button>
+  </form><br>
+</div>
+</body>
+</html>

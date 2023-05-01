@@ -1,8 +1,8 @@
 package com.mai.webApplication.controllers;
 
-import com.mai.webApplication.models.Teacher;
 import com.mai.webApplication.models.User;
 import com.mai.webApplication.repositories.UserRepository;
+import com.mai.webApplication.services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,48 +10,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
-
 @Controller
 public class ProfileController {
 
     private final UserRepository userRepository;
+    private final TeacherService teacherService;
 
     @Autowired
-    public ProfileController(UserRepository userRepository) {
+    public ProfileController(UserRepository userRepository, TeacherService teacherService) {
         this.userRepository = userRepository;
+        this.teacherService = teacherService;
     }
 
     @GetMapping("/profile")
     public String getAccountPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userRepository.findByUsername(authentication.getName()).get();
-        model.addAttribute("role", currentUser.getRole());
 
-        outputInf(model, currentUser);
-
-        return "profile/profile";
-    }
-
-    private void outputInf(Model model, User currentUser) {
-        if(currentUser.getStudent() != null) {
-            model.addAttribute("firstName", currentUser.getStudent().getFirstName());
-            model.addAttribute("surName", currentUser.getStudent().getSurName());
-            model.addAttribute("fatherLand", currentUser.getStudent().getFatherLand());
-            model.addAttribute("groupStudent", currentUser.getStudent().getGroupStudent());
-        } else {
-            model.addAttribute("firstName", currentUser.getTeachers().get(0).getFirstName());
-            model.addAttribute("surName", currentUser.getTeachers().get(0).getSurName());
-            model.addAttribute("fatherLand", currentUser.getTeachers().get(0).getFatherLand());
-
-            ArrayList<String> groups = new ArrayList<>();
-            ArrayList<String> subjects = new ArrayList<>();
-            for(Teacher teacher : currentUser.getTeachers()) {
-                groups.add(teacher.getGroupStudent());
-                subjects.add(teacher.getSubject());
-            }
-            model.addAttribute("groups", groups);
-            model.addAttribute("subjects", subjects);
+        if(currentUser.getRole().equals("ROLE_STUDENT")) {
+            model.addAttribute("student", currentUser.getStudent());
+            return "profile/profile-student";
         }
+
+        model.addAttribute("teacher", currentUser.getTeachers().get(0));
+
+        if(currentUser.getRole().equals("ROLE_ADMIN")) {
+            model.addAttribute("teachers", teacherService.findAll());
+        } else {
+            model.addAttribute("teachers", currentUser.getTeachers());
+        }
+
+        return "profile/profile-teacher";
     }
 }

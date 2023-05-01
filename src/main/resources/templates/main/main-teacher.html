@@ -81,13 +81,8 @@
     <form th:action="@{/profile}">
     <button class="main-button">Личный кабинет</button>
     </form><br>
-    <div id="student-form" th:if="${currentRole != 'ROLE_TEACHER'}">
-        <form th:action="@{/statements}">
-        <button class="main-button">Моя успеваемость</button>
-        </form><br>
-    </div>
-    <div id="teacher-form" th:if="${currentRole == 'ROLE_TEACHER'}">
-        <form th:action="@{/choice_group}">
+    <div>
+        <form th:action="@{/choice-group}">
         <button class="main-button">Провести экзамен (создать ведомость)</button>
         </form><br>
         <form th:action="@{/statements}">

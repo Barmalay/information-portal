@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/auth/login","/auth/registration","/error") //Разрешаем всем пользователям доступ на эти страницы
                 .permitAll()
-                .anyRequest().hasAnyRole("STUDENT","TEACHER")
+                .anyRequest().hasAnyRole("STUDENT","TEACHER","ADMIN")
                 .and()
                 .formLogin().loginPage("/auth/login")           //Страница для входа
                 .loginProcessingUrl("/process_login")
