@@ -1,8 +1,8 @@
 package com.mai.webApplication.controllers;
 
 import com.mai.webApplication.models.User;
-import com.mai.webApplication.repositories.UserRepository;
 import com.mai.webApplication.services.TeacherService;
+import com.mai.webApplication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ProfileController {
 
-    private final UserRepository userRepository;
     private final TeacherService teacherService;
+    private final UserService userService;
 
     @Autowired
-    public ProfileController(UserRepository userRepository, TeacherService teacherService) {
-        this.userRepository = userRepository;
+    public ProfileController(TeacherService teacherService, UserService userService) {
         this.teacherService = teacherService;
+        this.userService = userService;
     }
 
     @GetMapping("/profile")
     public String getAccountPage(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = userRepository.findByUsername(authentication.getName()).get();
+        User currentUser = userService.getCurrentUser();
 
         if(currentUser.getRole().equals("ROLE_STUDENT")) {
             model.addAttribute("student", currentUser.getStudent());

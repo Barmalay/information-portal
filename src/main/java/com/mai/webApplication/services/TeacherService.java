@@ -18,7 +18,7 @@ public class TeacherService {
         this.teacherRepository = teacherRepository;
     }
 
-    public Optional<Teacher> loadTeacherBySubjectAndGroupStudent(String subject, String groupStudent) {
+    public Optional<Teacher> findBySubjectAndGroup(String subject, String groupStudent) {
         return teacherRepository.findBySubjectAndGroupStudent(subject, groupStudent);
     }
 

@@ -19,13 +19,15 @@ public class AuthController {
     private final RegistrationUserService registrationUserService;
     private final RegistrationStudentService registrationStudentService;
     private final RegistrationTeacherService registrationTeacherService;
+    private final StudentService studentService;
     private final UserValidator userValidator;
 
     @Autowired
-    public AuthController(RegistrationUserService registrationUserService, RegistrationStudentService registrationStudentService, RegistrationTeacherService registrationTeacherService, UserValidator userValidator) {
+    public AuthController(RegistrationUserService registrationUserService, RegistrationStudentService registrationStudentService, RegistrationTeacherService registrationTeacherService, StudentService studentService, UserValidator userValidator) {
         this.registrationUserService = registrationUserService;
         this.registrationStudentService = registrationStudentService;
         this.registrationTeacherService = registrationTeacherService;
+        this.studentService = studentService;
         this.userValidator = userValidator;
     }
 
@@ -41,27 +43,25 @@ public class AuthController {
                                       @ModelAttribute("selectedGroups")
                                           ArrayList<String> selectedGroups,
                                       Model model) {
-        ArrayList<String> groups = new ArrayList<>();
-        groups.add("М3О-409Б-19");
-        groups.add("М3О-410Б-19");
-        groups.add("М3О-407Б-19");
-        groups.add("М3О-408Б-19");
 
-        model.addAttribute("groups", groups);
+        model.addAttribute("groups", studentService.findAllGroupNames());
         return "auth/registration";
     }
 
     @PostMapping("/registration")
     public String postRegistration(@ModelAttribute("user") @Valid User user,
+                                   BindingResult bindingResult,
                                    @ModelAttribute("student") Student student,
                                    @ModelAttribute("teacher") Teacher teacher,
-                                   @ModelAttribute("selectedGroups")
+                                   @ModelAttribute("selectedGroups[]")
                                        ArrayList<String> selectedGroups,
-                                   BindingResult bindingResult) {
+                                   Model model) {
 
         userValidator.validate(user, bindingResult);
-        if(bindingResult.hasErrors())
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("groups", studentService.findAllGroupNames());
             return "auth/registration";
+        }
 
         registrationUserService.register(user);
 
@@ -76,8 +76,6 @@ public class AuthController {
                 user.getTeachers().add(teacher);
                 registrationTeacherService.register(teacher);
             }
-        } else {
-            return "auth/registration";
         }
 
         return "redirect:/auth/login";

@@ -19,37 +19,47 @@ public class Statement {
     private Student student;
 
     @Column(name = "rating")
-    private int rating;
+    private String rating;
+
+    @Column(name = "name_subject")
+    private String nameSubject;
 
     public int getId() {
         return id;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public int getRating() {
-        return rating;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    public Student getStudent() {
+        return student;
     }
 
     public void setStudent(Student student) {
         this.student = student;
     }
 
-    public void setRating(int rating) {
+    public String getRating() {
+        return rating;
+    }
+    public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getNameSubject() {
+        return nameSubject;
+    }
+
+    public void setNameSubject(String nameSubject) {
+        this.nameSubject = nameSubject;
     }
 }

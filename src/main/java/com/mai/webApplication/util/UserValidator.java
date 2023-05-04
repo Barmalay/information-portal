@@ -28,14 +28,11 @@ public class UserValidator implements Validator {
     public void validate(Object o, Errors errors) {
         User user = (User) o;
 
-        if(user.getPassword().length() < 4 || user.getPassword().isBlank())
-            errors.rejectValue("password", "", "Пароль слишком маленький");
-
         try {
             userDetailsServiceReg.loadUserByUsername(user.getUsername());
         } catch (Exception e) {
             return;
         }
-        errors.rejectValue("username", "", "Пользователь уже существует!");
+        errors.rejectValue("username", "", "Пользователь уже существует c таким именем!");
     }
 }

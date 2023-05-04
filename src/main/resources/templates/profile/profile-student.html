@@ -81,14 +81,14 @@
 <h1>Личный кабинет</h1>
 <div class="profile-div">
     <h3>Информация о пользователе:</h3>
-<form class="form-group" th:object="${student}">
+<div class="form-group" th:object="${student}">
     <p>Имя: <span th:text="${student.getFirstName}"></span></p>
     <p>Фамилия: <span th:text="${student.getSurName}"></span></p>
     <p>Отчество: <span th:text="${student.getFatherLand}"></span></p>
     <div>
         <p>Группа: <span th:text="${student.getGroupStudent}"></span></p>
     </div>
-</form>
+</div>
     <form th:action="@{/main}">
         <button class="profile-button">Назад</button>
     </form><br>

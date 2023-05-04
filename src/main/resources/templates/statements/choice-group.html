@@ -97,13 +97,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="group, index : ${groups}">
-                    <td th:text="${group}"></td>
-                    <td th:text="${subjects[__${index.index}__]}"></td>
+                <tr th:each="teacher : ${teachers}">
+                    <td th:text="${teacher.getGroupStudent()}"></td>
+                    <td th:text="${teacher.getSubject()}"></td>
                     <td>
                         <form th:action="@{/statement}">
-                            <input type="hidden" name="currentGroup" th:value="${group}"/>
-                            <input type="hidden" name="currentSubject" th:value="${subjects[__${index.index}__]}"/>
+                            <input type="hidden" name="currentGroup" th:value="${teacher.getGroupStudent()}"/>
+                            <input type="hidden" name="currentSubject" th:value="${teacher.getSubject()}"/>
                             <input type="submit" value="Создать ведомость"/>
                         </form>
                     </td>

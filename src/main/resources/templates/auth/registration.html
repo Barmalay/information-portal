@@ -138,10 +138,12 @@
         <div class="form-registration" th:object="${student}">
             <label for="surName">Фамилия:</label>
             <input type="text" id="surName" th:field="*{surName}"/>
+            <div style="color:red" th:if="${#fields.hasErrors('surName')}" th:errors="*{surName}">Не должно быть пустым!</div>
         </div>
         <div class="form-registration" th:object="${student}">
             <label for="firstName">Имя:</label>
             <input type="text" id="firstName" th:field="*{firstName}"/>
+            <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Не должно быть пустым!</div>
         </div>
         <div class="form-registration" th:object="${student}">
             <label for="fatherLand">Отчество:</label>
@@ -151,10 +153,10 @@
         <div class="list-group" th:object="${student}">
             <label>Выберите группу</label>
             <select required name="groupStudent">
-                <option value="М3О-409Б-19">М3О-409Б-19</option>
-                <option value="М3О-410Б-19">М3О-410Б-19</option>
-                <option value="М3О-407Б-19">М3О-407Б-19</option>
-                <option value="М3О-408Б-19">М3О-408Б-19</option>
+                <option th:each="group : ${groups}"
+                        th:value="${group}"
+                        th:text="${group}">
+                </option>
             </select>
         </div>
         <br>
@@ -180,10 +182,12 @@
             <div class="form-registration" th:object="${teacher}">
                 <label for="surName">Фамилия:</label>
                 <input type="text" id="surName1" th:field="*{surName}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('surName')}" th:errors="*{surName}">Не должно быть пустым!</div>
             </div>
             <div class="form-registration" th:object="${teacher}">
                 <label for="firstName">Имя:</label>
                 <input type="text" id="firstName1" th:field="*{firstName}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Не должно быть пустым!</div>
             </div>
             <div class="form-registration" th:object="${teacher}">
                 <label for="fatherLand">Отчество:</label>
@@ -192,7 +196,7 @@
             </div>
             <div class="list-group">
                 <label>Выберите группу(ы), у которой(ых) Вы преподаете</label>
-                <select name="selectedGroups" multiple>
+                <select name="selectedGroups[]" multiple="multiple">
                     <option th:each="group : ${groups}"
                             th:value="${group}"
                             th:text="${group}">

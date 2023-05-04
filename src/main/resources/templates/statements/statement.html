@@ -188,18 +188,19 @@
                     <label>
                         <select name="grade" id="select-grade" onchange="updateTable()" required>
                             <option value="" disabled selected hidden>Выберите оценку</option>
-                            <option value="0">Неявка</option>
-                            <option value="2">Неуд</option>
-                            <option value="3">Удовлетворительно</option>
-                            <option value="4">Хорошо</option>
-                            <option value="5">Отлично</option>
-                            <option value="6">Недопущен кафедрой</option>
-                            <option value="7">Недопущен деканом</option>
+                            <option value="Неявка">Неявка</option>
+                            <option value="Неуд">Неуд</option>
+                            <option value="Удовлетворительно">Удовлетворительно</option>
+                            <option value="Хорошо">Хорошо</option>
+                            <option value="Отлично">Отлично</option>
+                            <option value="Недопущен кафедрой">Недопущен кафедрой</option>
+                            <option value="Недопущен деканом">Недопущен деканом</option>
                         </select>
                     </label>
                 </td>
-                <td><input type="text" name="comment" maxlength="100"/></td>
-                <input type="hidden" name="studentId" th:value="${student.id}"/>
+                <td><input type="text" name="comment" maxlength="100"/>
+                    <input type="hidden" name="studentId" th:value="${student.id}"/>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -235,6 +236,8 @@
             </tr>
             </tbody>
         </table><br>
+        <input type="hidden" name="currentGroup" th:value="${group}"/>
+        <input type="hidden" name="currentSubject" th:value="${subject}"/>
         <button class="save-button" type="submit">Сохранить</button>
     </form><br>
     <form th:action="@{/choice-group}">

@@ -44,12 +44,12 @@ button[type="submit"]
     font-size: 16px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.20);
   }
-  
+
   .form-group input[type="text"]:invalid,
   .form-group input[type="password"]:invalid {
     border-color: #ff4b4b;
   }
-  
+
 h1 {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
