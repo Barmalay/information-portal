@@ -93,58 +93,74 @@
         }
     </style>
     <script>
-        function updateTable() {
-            // Получаем все элементы select в первой таблице
-            const selectElements = document.querySelectorAll('table:first-of-type select');
-            // Добавляем обработчик события change на каждый из элементов select
-            selectElements.forEach((select, index) => {
-                select.addEventListener('change', () => {
-                    // Получаем выбранную пользователем оценку из select
-                    const selectedValue = select.value;
+        // function updateTable() {
+        //     // Получаем все элементы select в первой таблице
+        //     const selectElements = document.querySelectorAll('table:first-of-type select');
+        //     // Добавляем обработчик события change на каждый из элементов select
+        //     selectElements.forEach((select, index) => {
+        //         select.addEventListener('change', () => {
+        //             // Получаем выбранную пользователем оценку из select
+        //             const selectedValue = select.value;
+        //
+        //             // Получаем все строки второй таблицы
+        //             const rows = document.querySelectorAll('table:last-of-type tbody tr');
+        //
+        //             // Обновляем значения столбца "Количество явившихся" (столбец 1)
+        //             let totalAttended = 0;
+        //             rows.forEach(row => {
+        //                 const td = row.querySelectorAll('td')[0];
+        //                 if (td.innerText !== 'Неявка') {
+        //                     totalAttended++;
+        //                 }
+        //                 td.innerText = totalAttended;
+        //             });
+        //
+        //             // Обновляем значения столбцов "Отлично" (столбец 2) до "Хорошо" (столбец 10)
+        //             const grades = ['Отлично', 'Хорошо', 'Удовлетворительно', 'Неудовлетворительно'];
+        //             for (let i = 0; i < grades.length; i++) {
+        //                 let totalSelected = 0;
+        //                 rows.forEach(row => {
+        //                     const td = row.querySelectorAll('td')[i+1];
+        //                     if (td.innerText === grades[i]) {
+        //                         totalSelected++;
+        //                     }
+        //                     td.innerText = totalSelected;
+        //                 });
+        //             }
+        //
+        //             // Обновляем значение столбца "Средний балл" (столбец 11)
+        //             let totalGrades = 0;
+        //             let numStudents = 0;
+        //             rows.forEach(row => {
+        //                 const td = row.querySelectorAll('td')[10];
+        //                 const grade = row.querySelectorAll('td')[9].innerText;
+        //                 if (grade >= 2 && grade <= 5) {
+        //                     totalGrades += grade;
+        //                     numStudents++;
+        //                 }
+        //             });
+        //             rows[0].querySelectorAll('td')[10].innerText = (totalGrades / numStudents).toFixed(2);
+        //         });
+        //     });
+        //     // Вызываем функцию для обновления таблицы
+        // }
+        // updateTable();
 
-                    // Получаем все строки второй таблицы
-                    const rows = document.querySelectorAll('table:last-of-type tbody tr');
+        // Получаем блок сообщения
+        var successMessage = document.getElementById('success-message');
 
-                    // Обновляем значения столбца "Количество явившихся" (столбец 1)
-                    let totalAttended = 0;
-                    rows.forEach(row => {
-                        const td = row.querySelectorAll('td')[0];
-                        if (td.innerText !== 'Неявка') {
-                            totalAttended++;
-                        }
-                        td.innerText = totalAttended;
-                    });
-
-                    // Обновляем значения столбцов "Отлично" (столбец 2) до "Хорошо" (столбец 10)
-                    const grades = ['Отлично', 'Хорошо', 'Удовлетворительно', 'Неудовлетворительно'];
-                    for (let i = 0; i < grades.length; i++) {
-                        let totalSelected = 0;
-                        rows.forEach(row => {
-                            const td = row.querySelectorAll('td')[i+1];
-                            if (td.innerText === grades[i]) {
-                                totalSelected++;
-                            }
-                            td.innerText = totalSelected;
-                        });
-                    }
-
-                    // Обновляем значение столбца "Средний балл" (столбец 11)
-                    let totalGrades = 0;
-                    let numStudents = 0;
-                    rows.forEach(row => {
-                        const td = row.querySelectorAll('td')[10];
-                        const grade = row.querySelectorAll('td')[9].innerText;
-                        if (grade >= 2 && grade <= 5) {
-                            totalGrades += grade;
-                            numStudents++;
-                        }
-                    });
-                    rows[0].querySelectorAll('td')[10].innerText = (totalGrades / numStudents).toFixed(2);
-                });
-            });
-            // Вызываем функцию для обновления таблицы
+        // Если блок сообщения существует
+        if (successMessage) {
+            // Показываем блок сообщения
+            successMessage.style.display = 'block';
+            // Ждем 2 секунды
+            setTimeout(function() {
+                // Скрываем блок сообщения
+                successMessage.style.display = 'none';
+                // Перенаправляем пользователя на главную страницу
+                window.location.href = '/main';
+            }, 2000);
         }
-        updateTable();
     </script>
 </head>
 <body>
@@ -239,10 +255,13 @@
         <input type="hidden" name="currentGroup" th:value="${group}"/>
         <input type="hidden" name="currentSubject" th:value="${subject}"/>
         <button class="save-button" type="submit">Сохранить</button>
-    </form><br>
+    </form>
     <form th:action="@{/choice-group}">
         <button class="profile-button">Назад</button>
     </form><br>
+</div>
+<div th:if="${successMessage}">
+    <div class="alert alert-success" th:text="${successMessage}"></div>
 </div>
 </body>
 </html>

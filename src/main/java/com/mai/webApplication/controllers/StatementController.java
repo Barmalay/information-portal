@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class StatementController {
         }
 
         List<Teacher> teachers = currentUser.getTeachers();
-        //teachers.removeIf(teacher -> statementService.findAllTeacher(teacher) != null);
+        //teachers.removeIf(teacher -> statementService.findAllTeacherStatements(teacher) != null);
         model.addAttribute("teachers", teachers);
 
         return "statements/choice-group";
@@ -74,12 +75,15 @@ public class StatementController {
     public String postCreateStatement(@RequestParam("studentId") ArrayList<Integer> studentIds,
                                       @RequestParam("grade") ArrayList<String> ratings,
                                       @RequestParam("currentGroup") String group,
-                                      @RequestParam("currentSubject") String subject) {
-
-        Teacher teacher = teacherService.findBySubjectAndGroup(subject, group).get();
-//        System.out.println(studentIds.toString());
-//        System.out.println(ratings.toString());
-
+                                      @RequestParam("currentSubject") String subject,
+                                      RedirectAttributes redirectAttributes) {
+        User currentUser = userService.getCurrentUser();
+        Teacher teacher;
+        if(currentUser.getRole().equals("ROLE_ADMIN")) {
+            teacher = currentUser.getTeachers().get(0);
+        } else {
+            teacher = teacherService.findBySubjectAndGroup(subject, group).get();
+        }
 
         ArrayList<Student> students = new ArrayList<>();
         for(int id : studentIds)
@@ -94,6 +98,7 @@ public class StatementController {
             statementService.register(statement);
         }
 
+        redirectAttributes.addFlashAttribute("successMessage", "Ведомость успешно сохранена.");
         return "main/main-teacher";
     }
 }

@@ -89,6 +89,9 @@
         <p>Группа: <span th:text="${student.getGroupStudent}"></span></p>
     </div>
 </div>
+    <form th:action="@{/profile/change-password}">
+        <button class="profile-button-change">Сменить пароль</button>
+    </form><br>
     <form th:action="@{/main}">
         <button class="profile-button">Назад</button>
     </form><br>
