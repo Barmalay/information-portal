@@ -21,17 +21,20 @@ public class Teacher {
     @Column(name = "subject")
     private String subject;
 
-    @Column(name = "sur_name")
-    private String surName;
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "father_land")
-    private String fatherLand;
+    @Column(name = "father_name")
+    private String fatherName;
 
     @OneToMany(mappedBy = "teacher")
     private List<Statement> statements;
+
+    @Column(name = "type_of_control")
+    private String typeControl;
 
     public int getId() {
         return id;
@@ -65,12 +68,12 @@ public class Teacher {
         this.subject = subject;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -81,12 +84,12 @@ public class Teacher {
         this.firstName = firstName;
     }
 
-    public String getFatherLand() {
-        return fatherLand;
+    public String getFatherName() {
+        return fatherName;
     }
 
-    public void setFatherLand(String fatherLand) {
-        this.fatherLand = fatherLand;
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
     }
 
     public List<Statement> getStatements() {
@@ -97,11 +100,19 @@ public class Teacher {
         this.statements = statements;
     }
 
+    public String getTypeControl() {
+        return typeControl;
+    }
+
+    public void setTypeControl(String typeControl) {
+        this.typeControl = typeControl;
+    }
+
     public String getFullName() {
-        return getSurName() + " " + getFirstName() + " " + getFatherLand();
+        return getLastName() + " " + getFirstName() + " " + getFatherName();
     }
 
     public String getShortName() {
-        return getSurName() + " " + getFirstName().charAt(0) + "." + getFatherLand().charAt(0) + ".";
+        return getLastName() + " " + getFirstName().charAt(0) + "." + getFatherName().charAt(0) + ".";
     }
 }

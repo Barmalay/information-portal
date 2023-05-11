@@ -49,7 +49,7 @@ public class StatementController {
         }
 
         List<Teacher> teachers = currentUser.getTeachers();
-        //teachers.removeIf(teacher -> statementService.findAllTeacherStatements(teacher) != null);
+        teachers.removeIf(teacher -> statementService.findAllTeacherStatements(teacher).isEmpty());
         model.addAttribute("teachers", teachers);
 
         return "statements/choice-group";
@@ -57,11 +57,13 @@ public class StatementController {
 
     @GetMapping("/statement")
     public String getCreateStatement(@ModelAttribute("StatementForm")StatementForm statementForm,
+                                     @RequestParam("typeControl") String typeControl,
                                      @RequestParam("currentGroup") String group,
                                      @RequestParam("currentSubject") String subject,
                                      Model model) {
         User currentUser = userService.getCurrentUser();
 
+        model.addAttribute("typeControl", teacherService.fullNameTypeControl(typeControl));
         model.addAttribute("group", group);
         model.addAttribute("subject", subject);
         model.addAttribute("number", "1");

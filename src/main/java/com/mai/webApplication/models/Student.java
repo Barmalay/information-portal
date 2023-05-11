@@ -1,7 +1,6 @@
 package com.mai.webApplication.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
@@ -19,14 +18,14 @@ public class Student {
     @Column(name = "group_student")
     private String groupStudent;
 
-    @Column(name = "sur_name")
-    private String surName;
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "father_land")
-    private String fatherLand;
+    @Column(name = "father_name")
+    private String fatherName;
 
     @OneToMany(mappedBy = "student")
     private List<Statement> statements;
@@ -55,12 +54,12 @@ public class Student {
         this.groupStudent = groupStudent;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -71,12 +70,12 @@ public class Student {
         this.firstName = firstName;
     }
 
-    public String getFatherLand() {
-        return fatherLand;
+    public String getFatherName() {
+        return fatherName;
     }
 
-    public void setFatherLand(String fatherLand) {
-        this.fatherLand = fatherLand;
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
     }
 
     public List<Statement> getStatements() {
@@ -88,6 +87,6 @@ public class Student {
     }
 
     public String getFullName() {
-        return getSurName() + " " + getFirstName() + " " + getFatherLand();
+        return getLastName() + " " + getFirstName() + " " + getFatherName();
     }
 }

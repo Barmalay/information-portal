@@ -36,8 +36,6 @@ public class StatementService {
     }
 
     public List<Statement> findAllTeacherStatements(Teacher teacher){
-        List<Statement> statements = findAllStatements();
-        statements.removeIf(statement -> statement.getTeacher().getId() != teacher.getId());
-        return statements;
+        return statementRepository.findStatementsByTeacherEquals(teacher);
     }
 }

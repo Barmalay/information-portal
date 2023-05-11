@@ -22,9 +22,23 @@ public class TeacherService {
         return teacherRepository.findBySubjectAndGroupStudent(subject, groupStudent);
     }
 
+    public List<Teacher> findByTeacherByGroup(String groupStudent) {
+        return teacherRepository.findTeachersByGroupStudent(groupStudent);
+    }
+
     public List<Teacher> findAll(){
         List<Teacher> teachers = teacherRepository.findAll();
         teachers.removeIf(teacher -> teacher.getGroupStudent() == null || teacher.getSubject() == null);
         return teachers;
+    }
+
+    public String fullNameTypeControl(String shortTC) {
+        return switch (shortTC) {
+            case ("Э") -> "Экзамен(" + shortTC + ")";
+            case ("Зо") -> "Зачет с оценкой(" + shortTC + ")";
+            case ("Зч") -> "Зачет(" + shortTC + ")";
+            case ("КР") -> "Курсовая работа(" + shortTC + ")";
+            default -> "-";
+        };
     }
 }

@@ -1,90 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymelaf.org">
 <head>
+  <link rel="stylesheet" type="text/css" media="all" href="/css/profile.css" th:href="@{/css/profile.css}" />
   <meta charset="UTF-8">
   <title>Личный кабинет</title>
-  <style>
-    .profile-div {
-      max-width: 360px;
-      margin: 0 auto;
-      padding: 32px;
-      background-color: rgb(255, 255, 255);
-      border-radius: 8px;
-      box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.20);
-    }
-    .form-group {
-      position: relative;
-      margin-bottom: 12px;
-    }
-
-    h1, h3 {
-      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      color: #2190e0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      border-spacing: 0;
-    }
-
-    thead {
-      background-color: #f5f5f5;
-      border-bottom: 1px solid #ddd;
-    }
-
-    th {
-      font-weight: bold;
-      text-align: left;
-      padding: 8px;
-    }
-
-    td {
-      border-bottom: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    tr:hover {
-      background-color: #f5f5f5;
-    }
-
-    /* Первая колонка таблицы */
-    td:first-child {
-      font-weight: bold;
-    }
-
-    button {
-      font-size: 16px;
-      font-weight: bold;
-      color: #ffffff;
-      background-color: #2190e0;
-      border: none;
-      border-radius: 4px;
-      padding: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-    }
-
-    button:hover {
-      background-color: #0063b3;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
-    }
-
-    button:focus {
-      outline: none;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
-    }
-
-  </style>
 </head>
 <body>
 <h1>Личный кабинет</h1>
 <div class="profile-div">
   <h3>Информация о пользователе:</h3>
   <form class="form-group" th:object="${teacher}">
+    <p>Фамилия: <span th:text="${teacher.getLastName}"></span></p>
     <p>Имя: <span th:text="${teacher.getFirstName}"></span></p>
-    <p>Фамилия: <span th:text="${teacher.getSurName}"></span></p>
-    <p>Отчество: <span th:text="${teacher.getFatherLand}"></span></p>
+    <p>Отчество: <span th:text="${teacher.getFatherName}"></span></p>
     <div>
       <h4>Дополнительная информация (только для преподавателей):</h4>
       <table>
@@ -92,6 +20,7 @@
         <tr>
           <th>Группа</th>
           <th>Дисциплина</th>
+          <th>Форма сдачи</th>
         </tr>
         </thead>
         <tbody>
@@ -99,6 +28,7 @@
         <tr th:each="teacher : ${teachers}">
           <td th:text="${teacher.getGroupStudent}"></td>
           <td th:text="${teacher.getSubject}"></td>
+          <td th:text="${teacher.getTypeControl}"></td>
         </tr>
         </tbody>
       </table>
