@@ -85,6 +85,12 @@
                        placeholder="Введите пароль"/>
                 <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Неправильный пароль</div>
             </div>
+            <div class="form-registration" th:object="${user}">
+                <label for="seed1">Сид-фраза для генерации публичного ключа:</label>
+                <input type="text" id="seed1" th:field="*{publicKey}"
+                       placeholder="Введите сид-фразу"/>
+                <div style="color:red" th:if="${#fields.hasErrors('publicKey')}" th:errors="*{publicKey}">Ошибка</div>
+            </div>
             <div class="form-registration" th:object="${teacher}">
                 <label for="lastName">Фамилия:</label>
                 <input type="text" id="surName1" th:field="*{lastName}"/>

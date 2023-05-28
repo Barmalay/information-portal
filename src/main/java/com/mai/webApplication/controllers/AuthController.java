@@ -1,6 +1,7 @@
 package com.mai.webApplication.controllers;
 
 import com.mai.webApplication.models.*;
+import com.mai.webApplication.proxy.BlockChainProxy;
 import com.mai.webApplication.services.*;
 import com.mai.webApplication.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,16 @@ public class AuthController {
     private final StudentService studentService;
     private final UserValidator userValidator;
 
+    private final BlockChainProxy blockChainProxy;
+
     @Autowired
-    public AuthController(RegistrationUserService registrationUserService, RegistrationStudentService registrationStudentService, RegistrationTeacherService registrationTeacherService, StudentService studentService, UserValidator userValidator) {
+    public AuthController(RegistrationUserService registrationUserService, RegistrationStudentService registrationStudentService, RegistrationTeacherService registrationTeacherService, StudentService studentService, UserValidator userValidator, BlockChainProxy blockChainProxy) {
         this.registrationUserService = registrationUserService;
         this.registrationStudentService = registrationStudentService;
         this.registrationTeacherService = registrationTeacherService;
         this.studentService = studentService;
         this.userValidator = userValidator;
+        this.blockChainProxy = blockChainProxy;
     }
 
     @GetMapping("/login")
@@ -62,7 +66,7 @@ public class AuthController {
             model.addAttribute("groups", studentService.findAllGroupNames());
             return "auth/registration";
         }
-
+        user.setPublicKey(blockChainProxy.createAccount(user.getPublicKey()).getBody());
         registrationUserService.register(user);
 
         if(user.getRole().equals("ROLE_STUDENT")) {

@@ -31,6 +31,10 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Student student;
 
+    @NotEmpty
+    @Column(name = "public_key")
+    private String publicKey;
+
     public User() {
 
     }
@@ -81,6 +85,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 
     @Override
